@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Home from './src/screens/Home';
 import { useState } from 'react';
 import ItemListCategories from './src/screens/ItemListCategories';
