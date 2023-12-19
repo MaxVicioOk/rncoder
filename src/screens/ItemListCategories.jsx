@@ -1,12 +1,12 @@
 import { FlatList, StyleSheet } from 'react-native'
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import SearchBar from '../components/SearchBar'
 import ProductItem from '../components/ProductItem'
 import allProducts from '../data/products.json'
-import { useState } from 'react'
+import BackButton from '../components/BackButton'
 
-export default function ItemListCategories({category}) {
+export default function ItemListCategories({category, setCategorySelected, setProdIdSelected}) {
   
   const [ keyWord, setKeyWord] = useState('')
   const [ products, setProducts ] = useState('')
@@ -26,11 +26,12 @@ export default function ItemListCategories({category}) {
     <>
       <Header title='Products'/>
       <SearchBar setKeyWord={setKeyWord}/>
+      <BackButton setCategorySelected={setCategorySelected}/>
       <FlatList
         style={styles.container}
         data={products}
         keyExtractor={item => item.id}
-        renderItem={(({item}) => <ProductItem item={item} />)}
+        renderItem={(({item}) => <ProductItem item={item} setProdIdSelected={setProdIdSelected}/>)}
       />
     </>
   )
@@ -39,5 +40,6 @@ export default function ItemListCategories({category}) {
 const styles = StyleSheet.create({
   container:{
     width: '100%',
-  }
+  },
+  
 })
