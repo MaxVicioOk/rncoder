@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   containerLandscape:{
     backgroundColor: colors.blue4,
     width: '100%',
-    height: '10%',
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },

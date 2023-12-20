@@ -1,10 +1,10 @@
 import { StyleSheet, Text, View, Image, Pressable, useWindowDimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import Header from '../components/Header'
 import allProducts from '../data/products.json'
 import { colors } from '../global/colors'
 
-export default function ItemDetail({prodIdSelected, setProdIdSelected}) {
+export default function ItemDetail({route}) {
+  const {id} = route.params
   const [ product, setProduct ] = useState({})
   const { width, height } = useWindowDimensions()
   const [ landscape, setLandscape ] = useState(false)
@@ -15,22 +15,18 @@ export default function ItemDetail({prodIdSelected, setProdIdSelected}) {
       setLandscape(false)
   }},[width, height])
   useEffect(()=>{
-    const findedProduct = allProducts.find(product => product.id === prodIdSelected)
+    const findedProduct = allProducts.find(product => product.id === id)
     setProduct(findedProduct)
-  },[prodIdSelected])
+  },[id])
   return (
     <>
-      <Header title='Detail'/>
-      <Pressable style={styles.goBack} title='GO BACK' onPress={() => setProdIdSelected(0)}>
-        <Text style={styles.text}>GO BACK</Text>
-      </Pressable>
       <View style={landscape ? styles.containerLandscape : styles.container}>
         <Image
           style={landscape ? styles.imageLandscape : styles.image}
           source={{uri:product.thumbnail}}
           resizeMode='cover'
         />
-        <View style={styles.containerDetail}>
+        <View style={landscape ? styles.containerDetailLandscape : styles.containerDetail}>
           <Text style={styles.title}>{product.title}</Text>
           <Text>{product.description}</Text>
           <Text style={landscape ? styles.priceLandscape : styles.price}>${product.price}</Text>
@@ -47,21 +43,25 @@ const styles = StyleSheet.create({
   container:{
     flex: 1,
     width: '100%',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     gap: 15
   },
   containerLandscape: {
     flexDirection: 'row',
-    height:'70%'
+    height:'100%',
+    width: '100%',
+    padding: '1%',
+    justifyContent: 'space-around'
   },
   image:{
     width:'100%',
     height: 300,
   },
   imageLandscape: {
-    width:'30%',
+    width:'33%',
     height: '100%',
+    borderRadius: 10
   },
   buyButton:{
     backgroundColor: colors.blue1,
@@ -72,13 +72,6 @@ const styles = StyleSheet.create({
   },
   textBuyButton: {
     alignSelf: 'center',
-  },
-  goBack: {
-    backgroundColor: colors.blue2,
-    paddingHorizontal: 50,
-    paddingVertical: 10,
-    marginTop: 10,
-    borderRadius: 10,
   },
   text: {
     color: colors.blue5
@@ -97,6 +90,11 @@ const styles = StyleSheet.create({
   },
   containerDetail:{
     padding: 25,
-    margin: 10.
+    margin: 10,
+  },
+  containerDetailLandscape:{
+    padding: 25,
+    margin: 10,
+    width: '55%'
   }
 })

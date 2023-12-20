@@ -2,10 +2,10 @@ import { Image, StyleSheet, Text, Pressable, useWindowDimensions } from 'react-n
 import React from 'react'
 import { colors } from '../global/colors'
 
-export default function ProductItem({item, setProdIdSelected}) {
+export default function ProductItem({item, navigation, route}) {
   const { width } = useWindowDimensions()
   return (
-    <Pressable style={styles.container} onPress={()=> setProdIdSelected(item.id)}>
+    <Pressable style={styles.container} onPress={()=> navigation.navigate("ItemDetail", {id: item.id})}>
       <Text style={width > 360 ? styles.text : styles.textMin}>{item.title}</Text>
       <Image 
         style={styles.image}

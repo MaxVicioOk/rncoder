@@ -6,8 +6,8 @@ import ProductItem from '../components/ProductItem'
 import allProducts from '../data/products.json'
 import BackButton from '../components/BackButton'
 
-export default function ItemListCategories({category, setCategorySelected, setProdIdSelected}) {
-  
+export default function ItemListCategories({navigation, route}) {
+  const {category} = route.params
   const [ keyWord, setKeyWord] = useState('')
   const [ products, setProducts ] = useState('')
   
@@ -24,14 +24,12 @@ export default function ItemListCategories({category, setCategorySelected, setPr
 
   return (
     <>
-      <Header title='Products'/>
       <SearchBar setKeyWord={setKeyWord}/>
-      <BackButton setCategorySelected={setCategorySelected}/>
       <FlatList
         style={styles.container}
         data={products}
         keyExtractor={item => item.id}
-        renderItem={(({item}) => <ProductItem item={item} setProdIdSelected={setProdIdSelected}/>)}
+        renderItem={(({item}) => <ProductItem item={item} navigation={navigation} route={route}/>)}
       />
     </>
   )
