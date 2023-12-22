@@ -18,6 +18,7 @@ export default function SearchBar({ setKeyWord }) {
   function removeItem(){
     setInput('')
     setError('')
+    setKeyWord('')
   }
   return (
     <>

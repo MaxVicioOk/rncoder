@@ -1,8 +1,9 @@
 import { FlatList, StyleSheet } from 'react-native'
-import categories from '../data/categories.json'
 import CategoryItem from './CategoryItem'
+import { useSelector } from 'react-redux'
 
 export default function Categories({navigation, route}) {
+  const categories = useSelector((state) => state.shop.value.categories)
   return (
     <FlatList
       style={styles.container}
@@ -16,5 +17,7 @@ export default function Categories({navigation, route}) {
 const styles = StyleSheet.create({
   container:{
     width: '100%',
+    height: '100%',
+    marginBottom: 120
   }
 })

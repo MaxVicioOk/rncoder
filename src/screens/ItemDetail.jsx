@@ -1,23 +1,18 @@
 import { StyleSheet, Text, View, Image, Pressable, useWindowDimensions } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import allProducts from '../data/products.json'
 import { colors } from '../global/colors'
+import { useSelector } from 'react-redux'
 
-export default function ItemDetail({route}) {
-  const {id} = route.params
-  const [ product, setProduct ] = useState({})
+export default function ItemDetail() {
   const { width, height } = useWindowDimensions()
   const [ landscape, setLandscape ] = useState(false)
+  const product = useSelector(state => state.shop.value.productSelected)
   useEffect(()=>{
     if (width > height){
       setLandscape(true)
     }else{
       setLandscape(false)
   }},[width, height])
-  useEffect(()=>{
-    const findedProduct = allProducts.find(product => product.id === id)
-    setProduct(findedProduct)
-  },[id])
   return (
     <>
       <View style={landscape ? styles.containerLandscape : styles.container}>
@@ -41,22 +36,21 @@ export default function ItemDetail({route}) {
 
 const styles = StyleSheet.create({
   container:{
-    flex: 1,
     width: '100%',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    gap: 15
+    gap: 5,
+    height: '82%',
   },
   containerLandscape: {
     flexDirection: 'row',
-    height:'100%',
+    height:'80%',
     width: '100%',
-    padding: '1%',
     justifyContent: 'space-around'
   },
   image:{
     width:'100%',
-    height: 300,
+    height: "45%",
   },
   imageLandscape: {
     width:'33%',
@@ -90,11 +84,9 @@ const styles = StyleSheet.create({
   },
   containerDetail:{
     padding: 25,
-    margin: 10,
   },
   containerDetailLandscape:{
-    padding: 25,
-    margin: 10,
+    padding: 15,
     width: '55%'
   }
 })

@@ -1,7 +1,9 @@
-import { StyleSheet, SafeAreaView } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font'
 import Navigator from './src/navigation/Navigator';
+import { store } from './src/app/store'
+import { Provider } from 'react-redux'
 
 export default function App() {
   const [fontLoaded] = useFonts({
@@ -13,7 +15,9 @@ export default function App() {
   return (
     <>
       <StatusBar style='auto'/>
+      <Provider store={store}>
         <Navigator/>
+      </Provider>
     </>
   );
 }
