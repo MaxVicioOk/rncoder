@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, FlatList, Pressable, useWindowDimensions } from
 import CartItem from '../components/CartItem'
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { usePostOrderMutation } from '../app/services/shopServices'
 
 export default function Cart() {
   const { width, height } = useWindowDimensions()
@@ -13,6 +14,8 @@ export default function Cart() {
     }else{
       setLandscape(false)
   }},[width, height])
+
+  const [postOrder] = usePostOrderMutation()
     
   return (
     <View style={landscape ? styles.containerLandscape : styles.container}>
@@ -23,7 +26,7 @@ export default function Cart() {
       />
       <View style={styles.totalContainer}>
         <Text>Total: ${cart.total}</Text>
-        <Pressable>
+        <Pressable onPress={()=>postOrder(cart)}>
           <Text>Confirm</Text>
         </Pressable>
       </View>
