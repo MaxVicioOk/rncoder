@@ -1,9 +1,9 @@
 import { FlatList, StyleSheet } from 'react-native'
 import CategoryItem from './CategoryItem'
-import { useSelector } from 'react-redux'
+import { useGetCategoriesQuery } from '../app/services/shopServices'
 
 export default function Categories({navigation, route}) {
-  const categories = useSelector((state) => state.shop.value.categories)
+  const { data: categories} = useGetCategoriesQuery()
   return (
     <FlatList
       style={styles.container}

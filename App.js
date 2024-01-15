@@ -1,9 +1,9 @@
 import { StyleSheet } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font'
-import Navigator from './src/navigation/Navigator';
 import { store } from './src/app/store'
 import { Provider } from 'react-redux'
+import MainNavigator from './src/navigation/MainNavigator';
 
 export default function App() {
   const [fontLoaded] = useFonts({
@@ -16,7 +16,7 @@ export default function App() {
     <>
       <StatusBar style='auto'/>
       <Provider store={store}>
-        <Navigator/>
+        <MainNavigator/>
       </Provider>
     </>
   );
